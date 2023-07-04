@@ -2,6 +2,7 @@ import { IUserRepository, UserRepository } from "../../modules/User/Repositories
 import { UserModel } from "../../modules/User/Schema/userSchema";
 import { CreateUserUseCase } from "../../modules/User/UseCases/CreateUser/CreateUserUseCase";
 import { GetAllUsersUseCase } from "../../modules/User/UseCases/GetAllUsers/GetAllUsersUseCase";
+import { connectDB } from "../database/mongoose";
 
 export class ProdCompositionRoot {
     public makeGetAllUsersUseCase(): GetAllUsersUseCase {

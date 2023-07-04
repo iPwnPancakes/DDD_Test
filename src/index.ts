@@ -1,15 +1,16 @@
 import express from 'express';
-import {connectDB} from './Infrastructure/database/mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { ProdCompositionRoot } from './Infrastructure/application/compositionRoot';
+import { connectDB } from './Infrastructure/database/mongoose';
 
 const compositionRoot = new ProdCompositionRoot();
 
 const app = express();
 const port = 4000;
 
-connectDB();
+const dbConnectionString = process.env.MONGO_URI || 'mongodb://localhost:27017/app';
+connectDB(dbConnectionString);
 
 app.use(bodyParser.json());
 app.use(cors())

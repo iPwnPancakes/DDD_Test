@@ -1,22 +1,31 @@
-interface IUserRepository{
-    save: Promise<User>;
-    getUserById: Promise<User>;
-    findAllUsers: Promise<Users[]>
+import {UserModel} from '../Schema/userSchema';
+import {User} from '../Entities/User';
+
+export interface IUserRepository{
+    save(user: User): Promise<User>;
+    getUserById(userId: string): Promise<User | null>;
+    getAllUsers(): Promise<User[]>
 }
 
 export class UserRepository implements IUserRepository {
-    private constructor(private readonly database) {
-        this.userDb = database
+    constructor(private readonly userModel: typeof UserModel) {
+        this.userModel = UserModel
     }
-    public static async save(user:User) {
-        return this.userDb.save(user)
+    async save(user:User): Promise<User> {
+        const firstName = user.getFirstName()
+        const lastName = user.getLastName()
+        const email = user.getEmail()
+
+        await this.userModel.create({ firstName, lastName, email })
+
+        return user
     }
-    public static async getUserById(userId: string) {
-        return this.userDb.findById(userId)
+    async getUserById(userId: string): Promise<User | null> {
+        return this.userModel.findById(userId)
     }
 
-    public static async findAllUsers() {
-        return this.userDb.getAll()
+    async getAllUsers(): Promise<User[]> {
+        return this.userModel.find()
     }
 
 

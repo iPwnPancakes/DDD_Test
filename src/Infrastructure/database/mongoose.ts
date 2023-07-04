@@ -1,4 +1,4 @@
-import {connect, ConnectOptions} from 'mongoose';
+import { connect } from 'mongoose';
 
 export async function connectDB () {
     try{

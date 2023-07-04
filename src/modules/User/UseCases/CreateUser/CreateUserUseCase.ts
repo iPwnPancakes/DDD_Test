@@ -1,12 +1,8 @@
-import {User} from '../../Entities/User'
-import { UserRepository, IUserRepository } from '../../Repositories/UserRepository';
+import { User } from '../../Entities/User'
+import { IUserRepository } from '../../Repositories/UserRepository';
 
 export class CreateUserUseCase {
-    private userRepo: IUserRepository;
-
-    constructor(userRepo: IUserRepository){
-        this.userRepo = userRepo
-    }
+    constructor(private readonly userRepo: IUserRepository) {}
 
     async execute(userProps:{firstName: string, lastName:string, email:string}) {
         const userOrError = User.create(userProps)
@@ -16,6 +12,4 @@ export class CreateUserUseCase {
 
         return {isSuccess: true, user: userOrError}
     }
-
-
 }

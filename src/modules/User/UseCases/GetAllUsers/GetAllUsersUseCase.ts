@@ -1,11 +1,9 @@
-import { userRepo } from "../../Repositories";
 import { IUserRepository } from "../../Repositories/UserRepository";
 
 export class GetAllUsersUseCase {
-    constructor(userRepo: IUserRepository ){}
+    constructor(private readonly userRepo: IUserRepository) {}
 
-    async execute(){
-        return userRepo.getAllUsers()
+    async execute() {
+        return this.userRepo.getAllUsers();
     }
-
 }

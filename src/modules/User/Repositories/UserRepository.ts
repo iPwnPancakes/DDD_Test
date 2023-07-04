@@ -11,6 +11,7 @@ export class UserRepository implements IUserRepository {
     constructor(private readonly userModel: typeof UserModel) {
         this.userModel = UserModel
     }
+
     async save(user:User): Promise<User> {
         const firstName = user.getFirstName()
         const lastName = user.getLastName()
@@ -20,6 +21,7 @@ export class UserRepository implements IUserRepository {
 
         return user
     }
+
     async getUserById(userId: string): Promise<User | null> {
         return this.userModel.findById(userId)
     }
@@ -27,6 +29,4 @@ export class UserRepository implements IUserRepository {
     async getAllUsers(): Promise<User[]> {
         return this.userModel.find()
     }
-
-
 }
